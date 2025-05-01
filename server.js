@@ -1,14 +1,13 @@
 const eventi_predefiniti = {
-    "posts": [
-        { "id": 1, "title": "Primo post express", "content": "Primo post del nostro blog", "author": "Pippo", "date": "2024-10-10", "category": "Tecnologia" },
-        { "id": 2, "title": "Guida a Express.js", "content": "Express è un framework per Node.js...", "author": "Paperino", "date": "2023-10-09", "category": "Tecnologia" },
-        { "id": 3, "title": "Chi sono", "content": "Ciao sono Dozer e vendo corsi di business online!!", "author": "Dozer", "date": "2023-10-09", "category": "Lavoro" }
+    "news": [
+        { "id": 1, "title": "Primo post express", "content": "Primo post del nostro blog", "author": "Pippo", "date": "2024-10-10" },
+        { "id": 2, "title": "Guida a Express.js", "content": "Express è un framework per Node.js...", "author": "Paperino", "date": "2023-10-09" },
+        { "id": 3, "title": "Chi sono", "content": "Ciao sono Dozer e vendo corsi di business online!!", "author": "Dozer", "date": "2023-10-09" }
     ],
     "users": [
         { "username": "admin", "password": "admin123", "role": "admin" },
         { "username": "user", "password": "user123", "role": "user" }
     ],
-    "categories": ["Tecnologia", "Cucina", "Viaggi", "Sport", "Lavoro"]
 };
 
 // Importa i moduli richiesti
@@ -43,6 +42,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
+
 
 
 // Dati iniziali dei post del blog
@@ -89,35 +89,62 @@ function auth(role) {
     return (req, res, next) => {
         if (req.session.user && (role.includes(req.session.user.role))) {
             return next();
-        }
-        res.status(403).send(`Accesso negato<br><a href="/">Home</a>`);
+        } else if (req.session.user) //significa che l'utente e' loggato ma non ha i permessi per accedere alla risorsa
+            res.status(403).send(`Accesso negato<br><a href="/home_logged">Ritorna alla home</a>`);
+        else
+            res.status(403).send(`Accesso negato<br><a href="/home_page">Ritorna alla home</a>`);
     };
 }
 
 //
-// Genera il form
 app.get('/', (req, res) => {
-    res.render('login');
+    if (req.session.user) //se e' gia' loggato passiamo la home degli utenti registrati
+        res.render('home_logged');
+    else
+        res.render('home_page');
 
 }
 );
 
+// Configura la sessione prima delle route
+app.use(session({
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+}));
+
+// Ora definisci le tue rotte
+app.get('/loginPage', (req, res) => {
+    res.render('login');
+});
 // Endpoint di login
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
     const user = users.find(u => u.username === username && u.password === password);
     if (user) {
         req.session.user = { username: user.username, role: user.role };
-        res.redirect('/home');
+        res.redirect('/home_logged');
     } else {
         res.status(401).send('Credenziali non valide');
     }
 });
 
+
+app.get('/home_logged', auth(['user', 'admin']), (req, res) => {
+    res.render('home_logged', { session: req.session });
+});
+
+
+
 // Endpoint di logout
 app.get('/logout', (req, res) => {
-    req.session.destroy();
-    res.send(`Logout effettuato<br><a href="/">Torna al Login</a>`);
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(500).send('Errore nel logout');
+        }
+        res.redirect('/'); // Reindirizza alla home page o altra pagina
+    });
 });
 
 //Index (homepage con i post)

@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  h1 Benvenuto nel Blog
+  include style.pug
+  // Filtro per categoria
+  //- form(action='/' method='GET')
+  //-   label(for='category') Filtra per categoria:
+  //-   select(name='category')
+  //-     option(value='') Tutte le categorie
+  //-     each category in categories
+  //-       option(value=category)= category
+  //-   button(type='submit') Filtra
+
+  //- // Visualizzazione dei post
+  //- ul
+  //-   each post in posts
+  //-     li
+  //-       h2= post.title
+  //-       p Categoria: #{post.category}
+  //-       a(href=`/post/${post.id}`) Leggi di più
+
+
+  
+  //- footer
+  //-   a(href='/') Torna alla home
+  //-   p © 2025 Nome del Blog - Tutti i diritti riservati.
