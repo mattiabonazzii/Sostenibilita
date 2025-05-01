@@ -4,7 +4,7 @@ block content
   h1= post.title
   h3 Autore: #{post.author} | Data: #{post.date} | Categoria: #{post.category}
   //- Visualizzazione del contenuto del post
-  div
+  div(class="text-center")
     p= post.content
 
-  include stylePost.pug
+  include style.pug

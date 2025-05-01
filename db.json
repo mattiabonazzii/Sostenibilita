@@ -2,31 +2,27 @@
   "news": [
     {
       "id": 1,
-      "title": "Primo post express",
-      "content": "Primo post del nostro blog",
-      "author": "Pippo",
-      "date": "2024-10-10"
+      "title": "La Nostra Missione: Fermare il Cambiamento Climatico, Insieme",
+      "content": "Siamo un'organizzazione nata da un'urgenza: quella di salvare il nostro pianeta da un futuro che rischia di diventare invivibile. Ogni secondo che passa, tonnellate di cibo vengono sprecate, miliardi di litri d'acqua vengono consumati inutilmente e l'atmosfera si arricchisce di CO₂, aggravando la crisi climatica. Non possiamo più restare a guardare.\n\nIl nostro obiettivo è chiaro: invertire la rotta del cambiamento climatico attraverso dati, consapevolezza e azione. Crediamo che la conoscenza sia il primo passo verso il cambiamento, per questo sviluppiamo strumenti digitali che mostrano in tempo reale l’impatto delle attività umane sull’ambiente. Vogliamo che ogni persona si renda conto di quanto sia prezioso ogni secondo, ogni gesto.\n\nNon ci limitiamo a raccontare i numeri: vogliamo trasformarli in azioni. Collaboriamo con scuole, enti pubblici e imprese per promuovere soluzioni sostenibili, dal risparmio energetico alla riduzione degli sprechi. Costruiamo alleanze, progetti e tecnologie che possano rendere ogni comunità più resiliente, più informata, più verde.\n\nIl cambiamento è possibile, ma ha bisogno di tutti. Il tempo per agire è adesso. Unisciti a noi per proteggere la Terra: è l’unica casa che abbiamo.",
+      "author": "Anna, founder of GreenFuture",
+      "date": "2024-10-10",
+      "category": "Informazione"
     },
     {
       "id": 2,
-      "title": "Guida a Express.js",
-      "content": "Express è un framework per Node.js...",
-      "author": "Paperino",
-      "date": "2023-10-09"
+      "title": "Come Piantare un Piccolo Albero",
+      "content": "Piantare un albero è un atto semplice ma fondamentale per l’ambiente. Segui questi passaggi per assicurarti che il tuo albero cresca sano e forte:Scegli il luogo giusto: Assicurati che l'area sia adatta al tipo di albero che intendi piantare, con abbastanza luce solare e spazio per crescere.Prepara il terreno: Scava una buca larga il doppio della zolla di radici del piccolo albero, circa 30-40 cm di profondità. Rimuovi eventuali pietre o radici di altre piante.Posiziona l'albero: Metti delicatamente l'albero nella buca, facendo attenzione a non danneggiare le radici. Il punto in cui il tronco incontra le radici deve essere al livello del terreno circostante.Riempie la buca: Copri le radici con il terreno che hai rimosso, compattandolo leggermente per eliminare le sacche d'aria, ma senza schiacciare troppo le radici.Annaffia: Dopo aver piantato l’albero, annaffialo abbondantemente. Questo aiuterà a stabilizzare le radici e a farle adattare al nuovo terreno.Cura continua: Nei primi mesi, annaffia regolarmente e, se necessario, proteggi il piccolo albero con una palizzata o una rete per evitare danni da animali.Con pazienza e cura, il tuo albero crescerà forte, contribuendo a migliorare l’ambiente intorno a te!",
+      "author": "Marco, esperto di botanica",
+      "date": "2025-02-09",
+      "category": "Tutorial"
     },
     {
       "id": 3,
-      "title": "Chi sono",
-      "content": "Ciao sono Dozer e vendo corsi di business online!!",
+      "title": "L'Importanza della Biodiversità: Proteggere gli Ecosistemi per un Futuro Sostenibile",
+      "content": "Quando pensiamo alla natura, spesso ci concentriamo sulle foreste, sugli oceani e sui grandi paesaggi naturali. Tuttavia, ciò che spesso ci sfugge è la biodiversità: l'incredibile varietà di specie viventi che condividono il nostro pianeta. Piante, animali, insetti, batteri e funghi, tutti insieme creano un ecosistema interconnesso che è vitale per il nostro benessere e per la salute della Terra.La biodiversità è la chiave per un ambiente sano, perché garantisce la stabilità degli ecosistemi e il funzionamento dei cicli naturali, come il ciclo dell'acqua, la purificazione dell'aria e la fertilità del suolo. Ogni specie ha un ruolo cruciale e contribuisce a mantenere l'equilibrio ecologico.Tuttavia, la crescente urbanizzazione, la deforestazione e il cambiamento climatico stanno minacciando la biodiversità in modo allarmante. Molte specie si stanno estinguendo a un ritmo senza precedenti, e questo potrebbe avere gravi ripercussioni sull'umanità, dal cibo che mangiamo all'acqua che beviamo.Cosa possiamo fare? La buona notizia è che possiamo tutti fare la nostra parte per proteggere la biodiversità. Ecco alcune azioni che possiamo intraprendere: Ridurre l'impatto ambientale: Adottare abitudini di consumo responsabile e ridurre gli sprechi aiuta a preservare gli habitat naturali./nPiantare alberi e piante locali: Le piante autoctone sono fondamentali per sostenere gli ecosistemi locali, attirando impollinatori e offrendo rifugio agli animali.Sostenere la conservazione: /nImpegnarsi in iniziative di conservazione e sostenere politiche per proteggere le aree naturali è essenziale per fermare la perdita di biodiversità./nEducare e sensibilizzare: Parla della biodiversità con amici, familiari e colleghi. /nL'informazione è il primo passo per un cambiamento positivo.Ogni piccola azione conta e, se agiamo insieme, possiamo garantire che le generazioni future possano godere della ricchezza naturale che la Terra ci offre. La biodiversità non è solo una questione di piante e animali, ma del nostro stesso futuro.",
       "author": "Dozer",
-      "date": "2023-10-09"
-    },
-    {
-      "id": 4,
-      "title": "Proviamo",
-      "content": "proviaamo",
-      "author": "11",
-      "date": "2025-05-01"
+      "date": "2023-10-09",
+      "category": "Informazione"
     }
   ],
   "users": [

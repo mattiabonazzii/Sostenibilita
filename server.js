@@ -163,7 +163,7 @@ app.get('/logout', (req, res) => {
 //     res.render('index', { title: 'Home', posts: filteredPosts, categories });
 // });
 
-app.get('/post/:id', auth(['user', 'admin']), (req, res) => {
+app.get('/post/:id', (req, res) => {
     const postId = parseInt(req.params.id);
     console.log('Id richiesto:', postId);
     const post = posts.find(p => p.id === postId); //trova il post associato all'ID
@@ -180,6 +180,19 @@ app.get('/post/:id', auth(['user', 'admin']), (req, res) => {
 // Rotte protetta accessibile solo dall'admin
 app.get('/admin', auth(['admin']), (req, res) => {
     res.render('admin', { news: posts });
+});
+
+app.get('/datispreco', async (req, res) => {
+    await fetch('http://localhost:4000/sprechi/qwerty')
+        .then(response => response.json())
+        .then(dati => {
+            console.log(dati);
+            res.render('dati_spreco', { dati: dati });
+        })
+        .catch(error => {
+            console.error('Errore:', error);
+            res.status(500).send('Errore durante il recupero dei dati');
+        });
 });
 
 
