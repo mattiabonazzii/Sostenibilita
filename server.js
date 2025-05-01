@@ -25,7 +25,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const file = join(__dirname, "db.json");
 const adapter = new JSONFile(file);
-const db = new Low(adapter, { posts: [], users: [], categories: [] });
+const db = new Low(adapter, { news: [], users: [], categories: [] });
 
 const app = express();
 const port = 3000;
@@ -59,15 +59,15 @@ async function readOrCreateFile() {
         await db.read(); // Legge il file
 
         // Assegna il contenuto del file 
-        posts = db.data.posts;
-        users = db.data.users;
-        categories = db.data.categories;
+        posts = Array.isArray(db.data.news) ? db.data.news : [];
+        users = Array.isArray(db.data.users) ? db.data.users : [];
+        categories = Array.isArray(db.data.categories) ? db.data.categories : [];
 
-    } catch (err) { //Creazione del file
+    } catch (err) { // Creazione del file
         console.log("File non trovato, creazione in corso...");
         db.data = eventi_predefiniti;
         await db.write(); // Scrive per creare il file
-        posts = db.data.posts;
+        posts = db.data.news;
         users = db.data.users;
         categories = db.data.categories;
         console.log("File creato con successo");
@@ -99,9 +99,9 @@ function auth(role) {
 //
 app.get('/', (req, res) => {
     if (req.session.user) //se e' gia' loggato passiamo la home degli utenti registrati
-        res.render('home_logged');
+        res.redirect('/home_logged');
     else
-        res.render('home_page');
+        res.redirect('/home_page');
 
 }
 );
@@ -131,8 +131,12 @@ app.post('/login', (req, res) => {
 });
 
 
+app.get('/home_page', (req, res) => {
+    res.render('home_page', { posts: posts });
+});
+
 app.get('/home_logged', auth(['user', 'admin']), (req, res) => {
-    res.render('home_logged', { session: req.session });
+    res.render('home_logged', { session: req.session, posts: posts });
 });
 
 
@@ -147,17 +151,17 @@ app.get('/logout', (req, res) => {
     });
 });
 
-//Index (homepage con i post)
-app.get('/home', auth(['user', 'admin']), (req, res) => {
-    const selectedCategory = req.query.category; //richiede la categoria
-    let filteredPosts = posts;
+// //Index (homepage con i post)
+// app.get('/home', auth(['user', 'admin']), (req, res) => {
+//     const selectedCategory = req.query.category; //richiede la categoria
+//     let filteredPosts = posts;
 
-    if (selectedCategory) {
-        filteredPosts = posts.filter(post => post.category === selectedCategory); //controllo sull'atributo categoria dell'oggetto
-    }
+//     if (selectedCategory) {
+//         filteredPosts = posts.filter(post => post.category === selectedCategory); //controllo sull'atributo categoria dell'oggetto
+//     }
 
-    res.render('index', { title: 'Home', posts: filteredPosts, categories });
-});
+//     res.render('index', { title: 'Home', posts: filteredPosts, categories });
+// });
 
 app.get('/post/:id', auth(['user', 'admin']), (req, res) => {
     const postId = parseInt(req.params.id);
@@ -175,23 +179,22 @@ app.get('/post/:id', auth(['user', 'admin']), (req, res) => {
 //
 // Rotte protetta accessibile solo dall'admin
 app.get('/admin', auth(['admin']), (req, res) => {
-    res.render('admin', { categories: categories, posts: posts });
+    res.render('admin', { news: posts });
 });
 
 
 // Aggiungi la categoria al post durante la creazione
 app.post('/admin/add', auth(['admin']), async (req, res) => {
-    const { title, content, author, category } = req.body;
-    if (title && content && author && category) {
+    const { title, content, author } = req.body;
+    if (title && content && author) {
         const newPost = {
-            id: db.data.posts.length + 1, // Usa db.data.posts invece di posts
+            id: db.data.news.length + 1, // Usa db.data.posts invece di posts
             title,
             content,
             author,
             date: new Date().toISOString().split('T')[0],
-            category
         };
-        db.data.posts.push(newPost); // Aggiungi il nuovo post direttamente a db.data.posts
+        db.data.news.push(newPost); // Aggiungi il nuovo post direttamente a db.data.posts
         await db.write(); // Salva le modifiche su db.json
         res.redirect('/admin');
     } else {
@@ -201,8 +204,8 @@ app.post('/admin/add', auth(['admin']), async (req, res) => {
 
 app.post('/admin/delete/:id', auth(['admin']), async (req, res) => {
     const postId = parseInt(req.params.id);
-    db.data.posts = db.data.posts.filter(post => post.id !== postId); // modifica l'array nel db
-    posts = db.data.posts
+    db.data.news = db.data.news.filter(post => post.id !== postId); // modifica l'array nel db
+    posts = db.data.news
     await db.write(); // Salva le modifiche sul db
     res.redirect('/admin');
 });

@@ -1,28 +1,32 @@
 {
-  "posts": [
+  "news": [
+    {
+      "id": 1,
+      "title": "Primo post express",
+      "content": "Primo post del nostro blog",
+      "author": "Pippo",
+      "date": "2024-10-10"
+    },
     {
       "id": 2,
       "title": "Guida a Express.js",
       "content": "Express è un framework per Node.js...",
       "author": "Paperino",
-      "date": "2023-10-09",
-      "category": "Tecnologia"
+      "date": "2023-10-09"
     },
     {
       "id": 3,
       "title": "Chi sono",
       "content": "Ciao sono Dozer e vendo corsi di business online!!",
       "author": "Dozer",
-      "date": "2023-10-09",
-      "category": "Lavoro"
+      "date": "2023-10-09"
     },
     {
-      "id": 3,
-      "title": "sss",
-      "content": "ss",
-      "author": "ss",
-      "date": "2025-03-24",
-      "category": "Tecnologia"
+      "id": 4,
+      "title": "Proviamo",
+      "content": "proviaamo",
+      "author": "11",
+      "date": "2025-05-01"
     }
   ],
   "users": [
@@ -36,12 +40,5 @@
       "password": "user123",
       "role": "user"
     }
-  ],
-  "categories": [
-    "Tecnologia",
-    "Cucina",
-    "Viaggi",
-    "Sport",
-    "Lavoro"
   ]
 }

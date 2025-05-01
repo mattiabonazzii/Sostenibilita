@@ -1,15 +1,14 @@
-extends layout
-
+extends layout_logged
 block content
   h1 Area Admin
-  h2 Aggiungi Nuovo Post
+  h2 Aggiungi una News
   form(action='/admin/add' method='POST')
     table
       tr
         td
           label(for='title') Titolo:
         td
-          input(type='text' name='title' placeholder='Titolo' required)
+          input(type='text' name='title' placeholder='Titolo news' required)
       tr
         td
           label(for='content') Contenuto:
@@ -21,23 +20,17 @@ block content
         td
           input(type='text' name='author' placeholder='Autore' required)
       tr
-        td
-          label(for='category') Categoria:
-        td
-          select(name='category' required)
-            each category in categories
-              option(value=category)= category
-      tr
         td(colspan='2')
-          button(type='submit') Aggiungi Post
+          button(type='submit') Aggiungi News
 
-  h2 Post Esistenti
-  ul
-    each post in posts
-      li
-        h3= post.title
-        p Autore: #{post.author} | Data: #{post.date} | Categoria: #{post.category}
-        form(action=`/admin/delete/${post.id}` method='POST')
-          button(type='submit') Elimina
-
-  include footer.pug
+  h2 News Esistenti
+  if news && news.length > 0
+    ul
+      each object in news
+        li
+          h3= object.title
+          p Autore: #{object.author} | Data: #{object.date}
+          form(action=`/admin/delete/${object.id}` method='POST')
+            button(type='submit') Elimina
+  else
+    p Nessuna news disponibile.
