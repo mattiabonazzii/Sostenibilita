@@ -1,0 +1,47 @@
+{
+  "posts": [
+    {
+      "id": 2,
+      "title": "Guida a Express.js",
+      "content": "Express è un framework per Node.js...",
+      "author": "Paperino",
+      "date": "2023-10-09",
+      "category": "Tecnologia"
+    },
+    {
+      "id": 3,
+      "title": "Chi sono",
+      "content": "Ciao sono Dozer e vendo corsi di business online!!",
+      "author": "Dozer",
+      "date": "2023-10-09",
+      "category": "Lavoro"
+    },
+    {
+      "id": 3,
+      "title": "sss",
+      "content": "ss",
+      "author": "ss",
+      "date": "2025-03-24",
+      "category": "Tecnologia"
+    }
+  ],
+  "users": [
+    {
+      "username": "admin",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "username": "user",
+      "password": "user123",
+      "role": "user"
+    }
+  ],
+  "categories": [
+    "Tecnologia",
+    "Cucina",
+    "Viaggi",
+    "Sport",
+    "Lavoro"
+  ]
+}

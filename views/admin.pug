@@ -1,0 +1,43 @@
+extends layout
+
+block content
+  h1 Area Admin
+  h2 Aggiungi Nuovo Post
+  form(action='/admin/add' method='POST')
+    table
+      tr
+        td
+          label(for='title') Titolo:
+        td
+          input(type='text' name='title' placeholder='Titolo' required)
+      tr
+        td
+          label(for='content') Contenuto:
+        td
+          textarea(name='content' placeholder='Contenuto' required)
+      tr
+        td
+          label(for='author') Autore:
+        td
+          input(type='text' name='author' placeholder='Autore' required)
+      tr
+        td
+          label(for='category') Categoria:
+        td
+          select(name='category' required)
+            each category in categories
+              option(value=category)= category
+      tr
+        td(colspan='2')
+          button(type='submit') Aggiungi Post
+
+  h2 Post Esistenti
+  ul
+    each post in posts
+      li
+        h3= post.title
+        p Autore: #{post.author} | Data: #{post.date} | Categoria: #{post.category}
+        form(action=`/admin/delete/${post.id}` method='POST')
+          button(type='submit') Elimina
+
+  include footer.pug
