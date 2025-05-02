@@ -203,7 +203,30 @@ app.get('/admin', auth(['admin']), (req, res) => {
 });
 
 app.get('/datispreco', async (req, res) => {
-    await fetch('http://localhost:4000/sprechi/qwerty')
+    await fetch('http://localhost:4000/sprechi-inizio', {
+        method: 'GET',
+        headers: {
+          'chiave': 'qwerty' // oppure 'Authorization': 'Bearer qwerty'
+        }
+      })
+        .then(response => response.json())
+        .then(dati => {
+            console.log(dati);
+            res.render('dati_spreco', { dati: dati });
+        })
+        .catch(error => {
+            console.error('Errore:', error);
+            res.status(500).send('Errore durante il recupero dei dati');
+        });
+});
+
+app.get('/datisprecooggi', async (req, res) => {
+    await fetch('http://localhost:4000/sprechi-oggi', {
+        method: 'GET',
+        headers: {
+          'chiave': 'qwerty'
+        }
+      })
         .then(response => response.json())
         .then(dati => {
             console.log(dati);
