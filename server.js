@@ -5,8 +5,8 @@ const eventi_predefiniti = {
         { "id": 3, "title": "Chi sono", "content": "Ciao sono Dozer e vendo corsi di business online!!", "author": "Dozer", "date": "2023-10-09" }
     ],
     "users": [
-        { "username": "admin", "password": "admin123", "role": "admin" },
-        { "username": "user", "password": "user123", "role": "user" }
+        { "id": 1, "username": "admin", "password": "admin123", "role": "admin" },
+        { "id": 2, "username": "user", "password": "user123", "role": "user" }
     ],
 };
 
@@ -114,10 +114,16 @@ app.use(session({
     cookie: { secure: false }
 }));
 
-// Ora definisci le tue rotte
+
 app.get('/loginPage', (req, res) => {
     res.render('login');
 });
+
+app.get('/signupPage', (req, res) => {
+    res.render('signup');
+});
+
+
 // Endpoint di login
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
@@ -130,13 +136,38 @@ app.post('/login', (req, res) => {
     }
 });
 
+// Endpoint di registrazione
+app.post('/signup', async (req, res) => {
+    const { username, password, password2 } = req.body;
+    const user = users.find(u => u.username === username);
+    if (user) { //se esistono già le credenziali
+        res.status(403).send(`Utente già esistente!<br><a href="/loginPage">Effettua il login</a><br><a href="/signupPage">Registrati</a><br><a href="/home_page">Ritorna alla home</a>`);
+
+    } else {
+        if (password === password2) { //se le password inserire sono uguali, procede alla registrazione
+            const newUser = {
+                id: db.data.users.length + 1, // Usa db.data.posts invece di posts
+                username: username,
+                password: password,
+                role: "user"
+            };
+            req.session.user = { username: newUser.username, role: newUser.role };
+
+            db.data.users.push(newUser); // Aggiungi il nuovo user
+            await db.write(); // Salva le modifiche su db.json
+            res.redirect('/home_logged');
+        }
+    }
+});
+
 
 app.get('/home_page', (req, res) => {
     res.render('home_page', { posts: posts });
 });
 
 app.get('/home_logged', auth(['user', 'admin']), (req, res) => {
-    res.render('home_logged', { session: req.session, posts: posts });
+    console.log("user logged: " + req.session.user.username)
+    res.render('home_logged', { userLogged: req.session.user.username, posts: posts });
 });
 
 
@@ -151,17 +182,6 @@ app.get('/logout', (req, res) => {
     });
 });
 
-// //Index (homepage con i post)
-// app.get('/home', auth(['user', 'admin']), (req, res) => {
-//     const selectedCategory = req.query.category; //richiede la categoria
-//     let filteredPosts = posts;
-
-//     if (selectedCategory) {
-//         filteredPosts = posts.filter(post => post.category === selectedCategory); //controllo sull'atributo categoria dell'oggetto
-//     }
-
-//     res.render('index', { title: 'Home', posts: filteredPosts, categories });
-// });
 
 app.get('/post/:id', (req, res) => {
     const postId = parseInt(req.params.id);

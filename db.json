@@ -35,6 +35,18 @@
       "username": "user",
       "password": "user123",
       "role": "user"
+    },
+    {
+      "id": 3,
+      "username": "piero",
+      "password": "admin123",
+      "role": "user"
+    },
+    {
+      "id": 4,
+      "username": "alessandro",
+      "password": "admin123",
+      "role": "user"
     }
   ]
 }
