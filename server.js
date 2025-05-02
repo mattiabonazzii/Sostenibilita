@@ -238,6 +238,24 @@ app.get('/datisprecooggi', async (req, res) => {
         });
 });
 
+app.get('/datitrasporto', async (req, res) => {
+    const km = req.query.km || 0;
+    await fetch(`http://localhost:4000/trasporto?km=${km}`, {
+        method: 'GET',
+        headers: {
+          'chiave': 'qwerty'
+        }
+      })
+        .then(response => response.json())
+        .then(dati => {
+            console.log(dati);
+            res.render('dati_trasporto', { dati: dati, km: km });
+        })
+        .catch(error => {
+            console.error('Errore:', error);
+            res.status(500).send('Errore durante il recupero dei dati');
+        });
+});
 
 // Aggiungi la categoria al post durante la creazione
 app.post('/admin/add', auth(['admin']), async (req, res) => {

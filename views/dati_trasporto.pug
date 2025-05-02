@@ -1,0 +1,15 @@
+extends layout 
+
+block content
+    div(class="text-center")
+        br
+        form(action="/datitrasporto", method="get")
+            label(for="km") Inserisci i chilometri:
+            input(type="number", name="km", id="km", required, min="0", step="1")
+            button(type="submit") Calcola
+    div(class="text-center")
+        h1 Quanta CO2 emettiamo percorrendo #{km}km?
+        h2 A Piedi #{dati.piedi} 
+        h2 In Autobus #{dati.autobus} 
+        h2 In Auto #{dati.auto} 
+        h2 In Aereo #{dati.aereo}
