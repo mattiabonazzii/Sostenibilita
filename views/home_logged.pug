@@ -5,9 +5,9 @@ block content
   h1 Dobbiamo salvare il nostro pianeta!
   include style.pug
 
-
-  ul
-    each post in posts
-      li
-        h2= post.title
-        a(href=`/post/${post.id}`) Leggi di più
+  div(style="padding-top: 3%")
+    ul
+      each post in posts
+        li
+          h2= post.title
+          a(href=`/post/${post.id}`) Leggi di più
