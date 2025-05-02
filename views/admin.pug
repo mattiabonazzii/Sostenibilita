@@ -20,6 +20,13 @@ block content
         td
           input(type='text' name='author' placeholder='Autore' required)
       tr
+        td 
+          label(for='category') Categoria post:
+        td 
+          select(name='category')
+            each object in categories
+              option(value=onject) #{object}
+      tr
         td(colspan='2')
           button(type='submit') Aggiungi News
 

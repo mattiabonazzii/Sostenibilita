@@ -8,6 +8,8 @@ const eventi_predefiniti = {
         { "id": 1, "username": "admin", "password": "admin123", "role": "admin" },
         { "id": 2, "username": "user", "password": "user123", "role": "user" }
     ],
+    "categories": ["Sviluppo", "Tutorial", "Regolamenti"]
+
 };
 
 // Importa i moduli richiesti
@@ -189,7 +191,10 @@ app.get('/post/:id', (req, res) => {
     const post = posts.find(p => p.id === postId); //trova il post associato all'ID
     if (post) {
         console.log(post)
-        res.render('post', { title: post.title, post });
+        if (req.session.user) //se e' loggato
+            res.render('post_logged', { title: post.title, post });
+        else 
+            res.render('post', { title: post.title, post });
     } else {
         res.status(404).send('Post non trovato');
     }
@@ -199,16 +204,16 @@ app.get('/post/:id', (req, res) => {
 //
 // Rotte protetta accessibile solo dall'admin
 app.get('/admin', auth(['admin']), (req, res) => {
-    res.render('admin', { news: posts });
+    res.render('admin', { news: posts, categories: categories });
 });
 
 app.get('/datispreco', async (req, res) => {
     await fetch('http://localhost:4000/sprechi-inizio', {
         method: 'GET',
         headers: {
-          'chiave': 'qwerty' // oppure 'Authorization': 'Bearer qwerty'
+            'chiave': 'qwerty' // oppure 'Authorization': 'Bearer qwerty'
         }
-      })
+    })
         .then(response => response.json())
         .then(dati => {
             console.log(dati);
@@ -224,9 +229,9 @@ app.get('/datisprecooggi', async (req, res) => {
     await fetch('http://localhost:4000/sprechi-oggi', {
         method: 'GET',
         headers: {
-          'chiave': 'qwerty'
+            'chiave': 'qwerty'
         }
-      })
+    })
         .then(response => response.json())
         .then(dati => {
             console.log(dati);
@@ -259,14 +264,15 @@ app.get('/datitrasporto', async (req, res) => {
 
 // Aggiungi la categoria al post durante la creazione
 app.post('/admin/add', auth(['admin']), async (req, res) => {
-    const { title, content, author } = req.body;
-    if (title && content && author) {
+    const { title, content, author, category } = req.body;
+    if (title && content && author && category) {
         const newPost = {
-            id: db.data.news.length + 1, // Usa db.data.posts invece di posts
-            title,
-            content,
-            author,
+            id: posts.length + 1, // Usa db.data.posts invece di posts
+            title: title,
+            content: content,
+            author: author,
             date: new Date().toISOString().split('T')[0],
+            category: category
         };
         db.data.news.push(newPost); // Aggiungi il nuovo post direttamente a db.data.posts
         await db.write(); // Salva le modifiche su db.json
