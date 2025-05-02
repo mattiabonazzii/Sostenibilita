@@ -43,5 +43,10 @@
       "password": "user123",
       "role": "user"
     }
+  ],
+  "categories": [
+    "Sviluppo",
+    "Tutorial",
+    "Regolamenti"
   ]
 }
