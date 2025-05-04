@@ -1,7 +1,8 @@
 extends layout_logged
 block content
-  h1 Area Admin
-  h2 Aggiungi una News
+  div(class='text-center')
+    h1 Area Admin
+    h2 Aggiungi una News
   form(action='/admin/add' method='POST')
     table
       tr
@@ -29,15 +30,14 @@ block content
       tr
         td(colspan='2')
           button(type='submit') Aggiungi News
-
-  h2 News Esistenti
-  if news && news.length > 0
-    ul
+  div(class='text-center')
+    h2 News Esistenti
+    if news && news.length > 0
       each object in news
-        li
+        div(class='contorno')
           h3= object.title
-          p Autore: #{object.author} | Data: #{object.date}
+          p Autore: #{object.author} | Data: #{object.date} | Categoria: #{object.category}
           form(action=`/admin/delete/${object.id}` method='POST')
             button(type='submit') Elimina
-  else
-    p Nessuna news disponibile.
+    else
+      p Nessuna news disponibile.

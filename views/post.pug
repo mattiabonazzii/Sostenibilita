@@ -6,6 +6,7 @@ block content
   h3 Autore: #{post.author} | Data: #{post.date} | Categoria: #{post.category}
   //- Visualizzazione del contenuto del post
   div(class="text-center")
-    p= post.content
+    div(class="contornopost")
+      p= post.content
 
   include style.pug
