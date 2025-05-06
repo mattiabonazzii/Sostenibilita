@@ -5,10 +5,8 @@ block content
   include style.pug
   
   // Visualizzazione dei post
-
   div(style="padding-top: 3%")
-    ul
-      each post in posts
-        li
+    each post in posts
+        div(class="contorno")
           h2= post.title
           a(href=`/post/${post.id}`) Leggi di più
